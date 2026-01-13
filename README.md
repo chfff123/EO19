@@ -242,7 +242,7 @@ Numbers are in **[0, 1]** scale.
 | DEIM v1 | HGNetv2 | 0.692 | 0.887 | 0.754 | 0.309 | 0.545 | 0.794 |
 | RT-DETR | PResNet-18 | 0.666 | 0.866 | 0.729 | 0.277 | 0.492 | 0.770 |
 | Co-DETR | ResNet-50 | 0.611 | 0.814 | 0.668 | 0.218 | 0.408 | 0.720 |
-| Co-DINO | ViT-L (5-scale) | TBD | TBD | TBD | TBD | TBD | TBD |
+| Co-DINO | ViT-L (5-scale) | 0.733 | 0.930 | 0.801 | 0.416 | 0.590 | 0.823 |					
 
 ---
 
