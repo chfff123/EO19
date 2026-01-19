@@ -31,7 +31,7 @@
 - [Preparation for Testing](#preparation-for-testing)
 - [Model Zoo & Results (3-run Average)](#model-zoo--results-3-run-average)
   - [Co-DINO (ViT-Large, 5-scale)](#co-dino-vit-large-5-scale)
-  - [RT-DETR (PResNet-18)](#rt-detr-presnet-18)
+  - [RT-DETR (ResNet-18)](#rt-detr-resnet-18)
   - [Co-DETR (ResNet-50)](#co-detr-resnet-50)
   - [DEIM v1 (HGNetv2)](#deim-v1-hgnetv2)
   - [D-FINE Large (HGNetv2)](#d-fine-large-hgnetv2)
@@ -146,7 +146,7 @@ Because different baselines use different codebases, please use each baseline’
 |---|---|---|---|---|
 | Co-DINO (ViT-L, 5-scale) | 3.7.12 | 1.11.0 / 0.12.0 | 11.3 / 8.2 | OpenCV 4.x, MMCV 1.5.0, MMDetection 2.25.3 |
 | Co-DETR (R50) | 3.7.12 | 1.11.0 / 0.12.0 | 11.3 / 8.2 | OpenCV 4.x, MMCV 1.5.0, MMDetection 2.25.3 |
-| RT-DETR (PResNet-18) | 3.7.12 | 2.4.1 | 12.1 / 9.1.2 | Project native deps |
+| RT-DETR (ResNet-18) | 3.7.12 | 2.4.1 | 12.1 / 9.1.2 | Project native deps |
 | DEIM v1 (HGNetv2) | 3.7.12 | 2.0.1 / 0.15.2 | 12.1 / 9.1.2 | faster-coco-eval, PyYAML, TensorBoard, SciPy, calflops, Transformers |
 | D-FINE (M/L) (HGNetv2) | 3.11.9 | 2.1.2 / 0.16.2 | 12.1 / 9.1.2 | faster-coco-eval, PyYAML, tensorboard, scipy, calflops, transformers, loguru |
 
@@ -170,7 +170,7 @@ pretrained/
 | Model | Checkpoint (local path) | Download | SHA256 |
 |---|---|---|---|
 | Co-DINO (ViT-L, 5-scale) | `pretrained/codino_vitl_5scale.pth` | TBA | TBA |
-| RT-DETR (PResNet-18) | `pretrained/rtdetr_r18.pth` | TBA | TBA |
+| RT-DETR (ResNet-18) | `pretrained/rtdetr_r18.pth` | TBA | TBA |
 | Co-DETR (R50) | `pretrained/codetr_r50.pth` | TBA | TBA |
 | DEIM v1 (HGNetv2) | `pretrained/deim_v1_hgnetv2.pth` | TBA | TBA |
 | D-FINE Medium (HGNetv2) | `pretrained/dfine_m_hgnetv2.pth` | TBA | TBA |
@@ -240,7 +240,7 @@ Numbers are in **[0, 1]** scale.
 | D-FINE Large | HGNetv2 | 0.701 | 0.900 | 0.762 | 0.321 | 0.534 | 0.799 |
 | D-FINE Medium | HGNetv2 | 0.693 | 0.885 | 0.756 | 0.282 | 0.524 | 0.792 |
 | DEIM v1 | HGNetv2 | 0.692 | 0.887 | 0.754 | 0.309 | 0.545 | 0.794 |
-| RT-DETR | PResNet-18 | 0.666 | 0.866 | 0.729 | 0.277 | 0.492 | 0.770 |
+| RT-DETR | ResNet-18 | 0.666 | 0.866 | 0.729 | 0.277 | 0.492 | 0.770 |
 | Co-DETR | ResNet-50 | 0.611 | 0.814 | 0.668 | 0.218 | 0.408 | 0.720 |
 | Co-DINO | ViT-L (5-scale) | 0.733 | 0.930 | 0.801 | 0.416 | 0.590 | 0.823 |					
 | Yolov12 | \ | 0.675 | 0.869 | \ | \ | \ | \ |					
@@ -258,7 +258,7 @@ Numbers are in **[0, 1]** scale.
 
 ---
 
-## RT-DETR (PResNet-18)
+## RT-DETR (ResNet-18)
 | Run | AP | AP50 | AP75 | AP_S | AP_M | AP_L |
 |---:|---:|---:|---:|---:|---:|---:|
 | 1 | 0.662 | 0.858 | 0.723 | 0.275 | 0.480 | 0.770 |
