@@ -71,26 +71,69 @@ This yields:
 - **8 hemimetabolous families × 1 = 8 categories**
 - **Total = 30 categories**
 
-
-> Note: Final dataset release form will follow original source licenses and publication policy (TBA).
-
 ---
 
 ## Taxonomy & Label Space
 
-### Why “Family” and Latin names?
-EO19 uses family-level categories to reduce ambiguity and align with practical pest monitoring decisions.
+### Family list used in EO19 (19 families)
 
-### Life-stage-aware labeling
-- **Holometabolous:** egg–larva–pupa–adult → split `Family_Adult` and `Family_Larva`
-- **Hemimetabolous:** nymph and adult are similar → keep one category
+#### Complete metamorphosis (Holometabolous, split into Adult/Larva)
+- Crambidae
+- Noctuidae
+- Limacodidae
+- Nymphalidae
+- Papilionidae
+- Sphingidae
+- Scarabaeidae
+- Elateridae
+- Coccinellidae
+- Cerambycidae
+- Chrysomelidae
+
+#### Incomplete metamorphosis (Hemimetabolous, single category)
+- Fulgoridae
+- Flatidae
+- Delphacidae
+- Cicadellidae
+- Miridae
+- Aphididae
+- Gryllotalpidae
+- Acrididae
+
+### Order coverage (4 orders)
+EO19 families mainly span the following insect orders:
+- **Lepidoptera**
+- **Coleoptera**
+- **Hemiptera**
+- **Orthoptera**
 
 ---
 
 ## Image Collection
-EO19 images come from:
-1) existing datasets (screened and cleaned)  
-2) public web collection via Latin/English/Chinese/common names + species names, followed by the same screening strategy
+EO19 images were collected from two sources and then cleaned using a unified screening protocol:
+
+### Source A: Existing datasets (major source: IP102)
+EO19 uses IP102 as a major source for initial collection and category alignment.
+The paper reports that approximately **10,000** images were obtained from IP102 after screening and relabeling checks.
+
+### Source B: Public web images
+Additional images were collected from public web sources using multiple query strategies:
+- Latin family names
+- English common names
+- Chinese common names
+- Colloquial names
+- Representative species names (within target families)
+
+After the same filtering strategy, the paper reports approximately **14,000** images collected from public sources.
+
+### Four image styles intentionally included
+EO19 intentionally preserves diversity in image style and acquisition conditions:
+1. **Natural habitat scenes** (small insects + complex backgrounds)
+2. **Field close-up images** (clearer subject, less background)
+3. **Specimen images** (clean background, morphology-focused)
+4. **A small number of AI-generated images** (for a few visually distinctive families, used as an exploratory supplement)
+
+> Note: The AI-generated subset is intentionally small and used only as an exploratory data source for underrepresented categories.
 
 ---
 
