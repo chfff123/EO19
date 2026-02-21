@@ -1,4 +1,4 @@
-# EO19: Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring
+# EO19: A Large Dataset Construction for Insect Identification and Multi-Model Performance Assessment
 
 > **Public Preview (Under Review)**  
 > This repository is a **public preview** prepared for the EO19 paper.  
@@ -53,10 +53,24 @@ It organizes categories at the **family** level (Latin names), and introduces a 
 ---
 
 ## Dataset Overview
-- **Scope:** Insecta → **8 orders**, **19 families**, **30 categories**
-- **Images:** **24,626** total
-- **Life-stage split:** **11 holometabolous families** split into **Adult / Larva** (→ 22 categories); remaining families keep one category each.
-- **Sources:** curated images from existing datasets + public web images (details and release policy TBA)
+- **Scope:** Insecta → **4 orders**, **19 families**, **30 categories**
+- **Images:** **24,626** expert-validated images
+- **Labeling principle:** family-level taxonomy with **life-stage-aware split** for holometabolous insects
+- **Annotation formats:** Pascal VOC (`.xml`), YOLO (`.txt`), COCO-style JSON (`.json`)
+- **Split ratio:** **train : val : test = 8 : 1 : 1** (stratified within each category)
+
+### EO19 design rationale (why this taxonomy?)
+EO19 is designed for **practical agricultural pest monitoring**, where family-level identification is often more actionable than species-level labels (e.g., pesticide decisions are commonly made at family/group level in practice).
+
+To reduce visual ambiguity during training:
+- **Holometabolous families** are split into `Family_Adult` and `Family_Larva`
+- **Hemimetabolous families** remain a single category (nymph/adult morphology is relatively similar)
+
+This yields:
+- **11 holometabolous families × 2 = 22 categories**
+- **8 hemimetabolous families × 1 = 8 categories**
+- **Total = 30 categories**
+
 
 > Note: Final dataset release form will follow original source licenses and publication policy (TBA).
 
