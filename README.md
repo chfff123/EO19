@@ -248,18 +248,88 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
 - captures global morphology cues (e.g., wing venation, dorsal plates, antennae, segmentation)
 - tends to suppress background interference and is more consistent across architectures
 
+### Original image
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/63ed81de-4d4f-481f-8aa8-18f1fd4f8eb7" width="22%" />
+  <img src="https://github.com/user-attachments/assets/c0f23b81-6b42-432c-9fc9-7fc99c6cb75c" width="22%" />
+  <img src="https://github.com/user-attachments/assets/eba5deb5-f5fa-441c-a15b-19b7d7797f18" width="22%" />
+  <img src="https://github.com/user-attachments/assets/f9832c66-60ee-4338-a968-2977d2a0bd9f" width="22%" />
+</p>
+
 ### DETR result
-<p>
+
+#### Co-DINO
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/526c660d-8db4-431a-a486-252fa96f5f51" width="22%" />
+  <img src="https://github.com/user-attachments/assets/704c36d4-9d54-4540-9e28-df9b461f4046" width="22%" />
+  <img src="https://github.com/user-attachments/assets/76a56231-7bb9-4f36-a860-bf096cd5dd91" width="22%" />
+  <img src="https://github.com/user-attachments/assets/b363a23a-074f-4088-9510-1c8a42f25fad" width="22%" />
 </p>
 
-<p>
-  <img src="https://github.com/user-attachments/assets/2b812fb6-4a1c-42bf-a0d2-773c49f43738" width="45%" />
-  <img src="https://github.com/user-attachments/assets/36e18aea-68d2-4766-ae48-913e472e667e" width="45%" />
+#### Co-DETR
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4e7b2f38-c06f-439a-a966-5b36c1e75f78" width="22%" />
+  <img src="https://github.com/user-attachments/assets/7398aa5b-a3bf-4b80-91df-0f4da75aa270" width="22%" />
+  <img src="https://github.com/user-attachments/assets/f352f7fd-573a-47af-8e7e-e95e40d51763" width="22%" />
+  <img src="https://github.com/user-attachments/assets/8e2f2624-726f-4d1b-999a-48ee9394f758" width="22%" />
 </p>
 
-<p>
-  <img src="https://github.com/user-attachments/assets/5f952303-8036-4663-99d1-9216aacb0b6e" width="45%" />
-  <img src="https://github.com/user-attachments/assets/c667cab8-13a1-42d5-959a-7d30dea0911e" width="45%" />
+#### RT-DETR
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/26b0ed55-c927-4888-8612-055a20075209" width="22%" />
+  <img src="https://github.com/user-attachments/assets/ca109e1f-aba7-44be-8f81-19ed6f0d086e" width="22%" />
+  <img src="https://github.com/user-attachments/assets/913d2f23-4613-420c-91b9-c7cafc6c5d70" width="22%" />
+  <img src="https://github.com/user-attachments/assets/f1c51f8f-d4d9-490a-8b38-2b0e66769480" width="22%" />
+</p>
+
+#### DEIM
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0aa783c8-3068-4512-bfda-dcc69919cdb2" width="22%" />
+  <img src="https://github.com/user-attachments/assets/ea289851-a18b-4265-94e2-eef8ccffb52e" width="22%" />
+  <img src="https://github.com/user-attachments/assets/8b8be1ed-d469-4d75-9814-7b08a721f1d4" width="22%" />
+  <img src="https://github.com/user-attachments/assets/10a1a634-666a-4133-bf89-da480a86d164" width="22%" />
+</p>
+
+#### D-FINE
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bfd2cf75-301f-493d-9adc-736a5c114ab4" width="22%" />
+  <img src="https://github.com/user-attachments/assets/8adab51b-633f-468d-a5f5-dda02d024e55" width="22%" />
+  <img src="https://github.com/user-attachments/assets/830ae023-94d9-4578-bc73-dfc615982ae2" width="22%" />
+  <img src="https://github.com/user-attachments/assets/e67e858b-4d19-4daa-bf41-39028385a60e" width="22%" />
+</p>
+
+### YOLO result
+
+#### YOLOv11
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/73fdb178-1f3e-4ab0-a979-5da3086807c9" width="22%" />
+  <img src="https://github.com/user-attachments/assets/cf8e079e-ab7a-40fc-988a-78575067a061" width="22%" />
+  <img src="https://github.com/user-attachments/assets/f2b73a9b-842e-4225-a5b0-832033b4e6bb" width="22%" />
+  <img src="https://github.com/user-attachments/assets/aa637e1b-4a38-4fe7-93ae-8b5701fd3722" width="22%" />
+</p>
+
+#### YOLOv8
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9f2f9029-b28d-4743-bcf4-e875b01d2464" width="22%" />
+  <img src="https://github.com/user-attachments/assets/469baba1-31ea-4ab3-ab35-6e40dfcfa301" width="22%" />
+  <img src="https://github.com/user-attachments/assets/365cd1e2-d4d0-4deb-8cfb-e421d8de7b05" width="22%" />
+  <img src="https://github.com/user-attachments/assets/45c89be9-d6dc-45b0-91c8-bf8e44bb6b57" width="22%" />
+</p>
+
+#### YOLOv12
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bbfe4ff3-3d8f-4fea-8570-6a6ca018833d" width="22%" />
+  <img src="https://github.com/user-attachments/assets/61eb1daa-de30-4ecd-afdc-ca9a836e195b" width="22%" />
+  <img src="https://github.com/user-attachments/assets/fe6ec5a2-7780-4272-838f-f2a6de76962f" width="22%" />
+  <img src="https://github.com/user-attachments/assets/8f574757-1003-4393-919f-e336f3bf496a" width="22%" />
+</p>
+
+#### YOLOv13
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/785e4852-ecbd-4a06-8008-68730eecf766" width="22%" />
+  <img src="https://github.com/user-attachments/assets/adaeca80-4f9e-46d1-81c1-7ca9fb1f92b7" width="22%" />
+  <img src="https://github.com/user-attachments/assets/08378aee-bfdf-4d35-9a32-b7244ee9cdbf" width="22%" />
+  <img src="https://github.com/user-attachments/assets/5aa38ae3-5039-4cad-9ed2-2b77a28ebef6" width="22%" />
 </p>
 
 ---
