@@ -192,7 +192,7 @@ Set num_classes = 30 (or equivalent) in your config.
 
 ---
 
-## DETR-based Baselines (MMDetection / official DETR-style codebases)
+### DETR-based Baselines (MMDetection / official DETR-style codebases)
 
 Use each DETR framework's native evaluation pipeline.
 Only modify the following:
@@ -207,7 +207,7 @@ See the specific model config for details.
 
 ---
 
-## YOLO-based Baselines 
+### YOLO-based Baselines 
 
 Use each YOLO framework's native evaluation pipeline.
 Only modify the following:
@@ -218,20 +218,6 @@ Only modify the following:
 - class names (if required by the framework)
 
 See the official YOLO documentation: https://docs.ultralytics.com/
-
----
-
-## YOLO-based Baselines (Ultralytics / official YOLO codebases)
-
-Use each YOLO framework's native evaluation pipeline.
-Only modify the following:
-
-- dataset path in the dataset YAML (e.g., path: ${EO19_ROOT})
-- annotation / split references (train, val, test)
-- number of classes (nc: 30)
-- class names (if required by the framework)
-
-Keep all other settings unchanged to preserve fair baseline comparison.
 
 ---
 
@@ -358,7 +344,7 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
   </tr>
 
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/63ed81de-4d4f-481f-8aa8-18f1fd4f8eb7" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/eba5deb5-f5fa-441c-a15b-19b7d7797f18" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/73fdb178-1f3e-4ab0-a979-5da3086807c9" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/9f2f9029-b28d-4743-bcf4-e875b01d2464" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/bbfe4ff3-3d8f-4fea-8570-6a6ca018833d" width="100%" /></td>
@@ -366,15 +352,15 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
   </tr>
 
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/c0f23b81-6b42-432c-9fc9-7fc99c6cb75c" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/63ed81de-4d4f-481f-8aa8-18f1fd4f8eb7" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/cf8e079e-ab7a-40fc-988a-78575067a061" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/469baba1-31ea-4ab3-ab35-6e40dfcfa301" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/61eb1daa-de30-4ecd-afdc-ca9a836e195b" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/adaeca80-4f9e-46d1-81c1-7ca9fb1f92b7" width="100%" /></td>
   </tr>
 
-  <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/eba5deb5-f5fa-441c-a15b-19b7d7797f18" width="100%" /></td>
+  <tr>   
+    <td align="center"><img src="https://github.com/user-attachments/assets/f9832c66-60ee-4338-a968-2977d2a0bd9f" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/f2b73a9b-842e-4225-a5b0-832033b4e6bb" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/365cd1e2-d4d0-4deb-8cfb-e421d8de7b05" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/fe6ec5a2-7780-4272-838f-f2a6de76962f" width="100%" /></td>
@@ -382,7 +368,7 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
   </tr>
 
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/f9832c66-60ee-4338-a968-2977d2a0bd9f" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/c0f23b81-6b42-432c-9fc9-7fc99c6cb75c" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/aa637e1b-4a38-4fe7-93ae-8b5701fd3722" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/45c89be9-d6dc-45b0-91c8-bf8e44bb6b57" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/8f574757-1003-4393-919f-e336f3bf496a" width="100%" /></td>
