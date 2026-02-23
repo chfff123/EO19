@@ -184,41 +184,18 @@ EO19_TXT/
 ## Quick Start
 
 ### 1) Set dataset root
+```bash
 export EO19_ROOT=/path/to/EO19
+```
 
-### 2) Ensure class count matches
-EO19 uses 30 categories.
-Set num_classes = 30 (or equivalent) in your config.
+### 2) Update framework configurations
+Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, please use their native evaluation pipelines. Keep all model-specific settings unchanged and **only modify the following dataset settings**:
 
----
+- **Dataset Path:** Point to your dataset root (e.g., `data_root: ${EO19_ROOT}` for DETR, or `path: ${EO19_ROOT}` for YOLO).
+- **Images & Annotations:** Update the paths to your image folders and annotation files (e.g., `img_prefix` & `ann_file` for DETR, or `train`/`val`/`test` split references for YOLO).
+- **Class Configuration:** EO19 uses **30** categories. Ensure the class count is updated (e.g., `num_classes = 30` for DETR, or `nc: 30` for YOLO). Update class names if required by the framework.
 
-### DETR-based Baselines (MMDetection / official DETR-style codebases)
-
-Use each DETR framework's native evaluation pipeline.
-Only modify the following:
-
-- dataset root/path (data_root / ${EO19_ROOT})
-- annotation file (ann_file)
-- image folder (img_prefix)
-- number of classes (num_classes = 30)
-
-Keep all other settings unchanged unless the original framework requires dataset-specific adjustments.
-See the specific model config for details.
-
----
-
-### YOLO-based Baselines 
-
-Use each YOLO framework's native evaluation pipeline.
-Only modify the following:
-
-- dataset path in the dataset YAML (e.g., path: ${EO19_ROOT})
-- annotation / split references (train, val, test)
-- number of classes (nc: 30)
-- class names (if required by the framework)
-
-See the official YOLO documentation: https://docs.ultralytics.com/
-
+> **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
 ---
 
 ## Baselines & Evaluation
