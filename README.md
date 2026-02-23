@@ -142,17 +142,32 @@ Key protocol principles:
 - Split ratio: **train : val : test = 8 : 1 : 1**
 - Split is performed **within each category** to preserve per-category proportions across subsets.
 
-Suggested structure (COCO format):
+### COCO format:
 ```text
-EO19/
+EO19_JSON/
   images/
     train/
     val/
     test/
   annotations/
-    eo19_train.json
-    eo19_val.json
-    eo19_test.json
+    train.json
+    val.json
+    test.json
+```
+
+### TXT format
+```text
+EO19_TXT/
+  training/
+    images/
+    labels/
+  val/
+    images/
+    labels/
+  test/
+    images/
+    labels/
+  classes.docx
 ```
 
 ---
@@ -169,20 +184,54 @@ EO19/
 ## Quick Start
 
 ### 1) Set dataset root
-```bash
 export EO19_ROOT=/path/to/EO19
-```
 
 ### 2) Ensure class count matches
-EO19 uses **30 categories**.
-Set `num_classes = 30` (or equivalent) in your config.
+EO19 uses 30 categories.
+Set num_classes = 30 (or equivalent) in your config.
 
-### 3) Evaluate using each framework’s native pipeline
-Because baselines come from different codebases, use the native scripts and only modify:
-- dataset root/path (`data_root` / `${EO19_ROOT}`)
-- annotation file (`ann_file`)
-- image folder (`img_prefix`)
-- number of classes (`num_classes`)
+---
+
+## DETR-based Baselines (MMDetection / official DETR-style codebases)
+
+Use each DETR framework's native evaluation pipeline.
+Only modify the following:
+
+- dataset root/path (data_root / ${EO19_ROOT})
+- annotation file (ann_file)
+- image folder (img_prefix)
+- number of classes (num_classes = 30)
+
+Keep all other settings unchanged unless the original framework requires dataset-specific adjustments.
+See the specific model config for details.
+
+---
+
+## YOLO-based Baselines 
+
+Use each YOLO framework's native evaluation pipeline.
+Only modify the following:
+
+- dataset path in the dataset YAML (e.g., path: ${EO19_ROOT})
+- annotation / split references (train, val, test)
+- number of classes (nc: 30)
+- class names (if required by the framework)
+
+See the official YOLO documentation: https://docs.ultralytics.com/
+
+---
+
+## YOLO-based Baselines (Ultralytics / official YOLO codebases)
+
+Use each YOLO framework's native evaluation pipeline.
+Only modify the following:
+
+- dataset path in the dataset YAML (e.g., path: ${EO19_ROOT})
+- annotation / split references (train, val, test)
+- number of classes (nc: 30)
+- class names (if required by the framework)
+
+Keep all other settings unchanged to preserve fair baseline comparison.
 
 ---
 
