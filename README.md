@@ -30,7 +30,6 @@
 - [Baselines & Evaluation](#baselines--evaluation)
 - [Model Zoo & Results](#model-zoo--results)
 - [Eigen-CAM Visualizations](#eigen-cam-visualizations)
-- [Reproducibility Checklist](#reproducibility-checklist)
 - [Download](#download)
 - [Citation](#citation)
 - [License](#license)
