@@ -135,50 +135,6 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
 > **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
 ---
 
-## YOLO-based Baselines (Ultralytics / official YOLO codebases)
-
-Use each YOLO framework’s **native evaluation pipeline**.  
-Only modify the following:
-
-- dataset path in the dataset YAML (e.g., `path: ${EO19_ROOT}`)
-- annotation / split references (`train`, `val`, `test`)
-- number of classes (`nc: 30`)
-- class names (if required by the framework)
-
-> Keep all other settings unchanged to preserve fair baseline comparison.  
-> For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/).
-
----
-
-## Baselines & Evaluation
-
-### Models covered
-**DETR-family (COCO AP-style metrics):**
-- Co-DINO (ViT-Large, 5-scale)
-- D-FINE-L / D-FINE-M (HGNetv2)
-- DEIM v1 (HGNetv2)
-- RT-DETR v2 (ResNet-18)
-- Co-DETR (ResNet-50)
-
-**YOLO-family (YOLO-style metrics):**
-- YOLOv8n
-- YOLOv11n
-- YOLOv12n
-- YOLOv13n
-
-### Metrics
-- **DETR-family:** COCO-style **AP, AP50, AP75, AP_S/M/L**
-- **YOLO-family:** **Precision, Recall, F1, mAP50, mAP50-95**
-  - For consistency, we map:
-    - `AP := mAP50-95`
-    - `AP50 := mAP50`
-
-### Two-round taxonomy comparison (paper ablation summary)
-EO19’s life-stage-aware taxonomy generally improves recognition boundaries.  
-However, long-tailed distributions can mask this advantage; after controlling long-tail influence, the majority of categories show improved performance under the refined taxonomy (details in paper).
-
----
-
 ## Model Zoo & Results
 All values are reported in **[0, 1]** scale on the EO19 validation split.  
 This public preview lists the headline numbers; detailed logs/configs are TBA.
