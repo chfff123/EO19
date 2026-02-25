@@ -352,16 +352,6 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
     <td align="center"><img src="https://github.com/user-attachments/assets/5aa38ae3-5039-4cad-9ed2-2b77a28ebef6" width="100%" /></td>
   </tr>
 </table>
----
-
-## Reproducibility Checklist
-If you want to reproduce the baseline numbers:
-- [ ] Use the exact EO19 split (8:1:1 per-category stratified)
-- [ ] Keep `num_classes = 30` and a fixed class ID mapping
-- [ ] Run **3 seeds** (e.g., 0/1/2) and report mean (and std if possible)
-- [ ] For YOLO-family, report `P/R/F1/mAP50/mAP50-95` directly from the framework
-- [ ] For DETR-family, use COCO evaluation scripts producing `AP/AP50/AP75/AP_S/M/L`
-- [ ] Record hardware + versions (CUDA/cuDNN/PyTorch) for transparency
 
 ---
 
