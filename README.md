@@ -1,4 +1,4 @@
-# EO19: A Large Dataset Construction for Insect Identification and Multi-Model Performance Assessment
+# EO19: A Large-Scale Insect Detection Dataset and Multi-Model Performance Assessment
 
 > **Public Preview (Under Review)**  
 > This repository is a **public preview** prepared for the EO19 paper.  
@@ -20,10 +20,6 @@
 
 ## Contents
 - [Introduction](#introduction)
-- [Dataset at a Glance](#dataset-at-a-glance)
-- [Taxonomy & Label Space](#taxonomy--label-space)
-- [Image Collection & Filtering](#image-collection--filtering)
-- [Annotation Protocol](#annotation-protocol)
 - [Data Split](#data-split)
 - [Annotations & Formats](#annotations--formats)
 - [Quick Start](#quick-start)
@@ -40,100 +36,22 @@
 
 ## Introduction
 EO19 is an insect detection dataset designed for agricultural pest monitoring.
-It organizes categories at the **family** level (Latin names), and introduces a **life-stage-aware labeling rule**:
+
+It organizes categories at the **family** level (Latin names) and introduces a **life-stage-aware labeling rule**:
 for holometabolous families, **Adult** and **Larva** are annotated as **two separate categories** to reduce intra-class appearance conflicts.
 
----
-
-## Dataset at a Glance
+### EO19 summary
 - **Taxonomy:** Class Insecta → **4 orders**, **19 families**, **30 categories**
 - **Images:** **24,626**
 - **Life-stage split:** **11 holometabolous families** split into **Adult / Larva** (→ 22 categories)
 - **Hemimetabolous:** **8 families** kept as single categories (→ 8 categories)
 - **Annotations:** bounding-box detection labels
-- **Formats:** VOC (XML) as the primary source, exported to YOLO (TXT) and COCO-like JSON (TBA for exact schema wording)
+- **Formats:** Pascal VOC (XML, primary source), exported to YOLO (TXT) and COCO JSON
 - **Baseline coverage:** DETR-family and YOLO-family detectors + interpretability via Eigen-CAM
 
+EO19 images are collected from screened/cleaned public sources (including IP102 as a major source) and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
+
 > Note: Final dataset release form will follow original source licenses and publication policy (TBA).
-
----
-
-## Taxonomy & Label Space
-
-### Why “Family” and Latin names?
-EO19 adopts **family-level** labels to reduce ambiguity and align with practical pest-management decisions.
-Latin family names provide stable, standardized naming (common names can be ambiguous).
-
-### Developmental-stage-aware labeling (EO19 rule)
-- Complete metamorphosis (holometabolous): split into `Family_Adult` and `Family_Larva`
-- Incomplete metamorphosis (hemimetabolous): keep one category `Family` (nymph + adult together)
-
-### Families used in EO19 (19 total)
-**Complete metamorphosis (11 families → 22 categories):**
-- Crambidae
-- Noctuidae
-- Limacodidae
-- Nymphalidae
-- Papilionidae
-- Sphingidae
-- Scarabaeidae
-- Elateridae
-- Coccinellidae
-- Cerambycidae
-- Chrysomelidae
-
-**Incomplete metamorphosis (8 families → 8 categories):**
-- Fulgoridae
-- Flatidae
-- Delphacidae
-- Cicadellidae
-- Miridae
-- Aphididae
-- Gryllotalpidae
-- Acrididae
-
-### Filename convention (recommended)
-- Holometabolous families:
-  - Adult: `A_<FamilyLatin>_<Index>.jpg`
-  - Larva: `L_<FamilyLatin>_<Index>.jpg`
-- Hemimetabolous families:
-  - `<FamilyLatin>_<Index>.jpg`
-
-Examples:
-- `A_Cerambycidae_0001.jpg`
-- `L_Cerambycidae_0001.jpg`
-- `Acrididae_0008.jpg`
-
----
-
-## Image Collection & Filtering
-EO19 images come from:
-1) screened/cleaned images from existing datasets
-2) public web collection via Latin/English/Chinese/common names + species names (followed by the same screening strategy)
-
-Typical EO19 image types include:
-- natural habitat images (small instances, heavy background)
-- high-definition field images (one/few insects, clearer subject)
-- specimen images (clean backgrounds, strong morphological visibility)
-- a **small number of AI-generated images** (used only for feasibility exploration of generative augmentation)
-
-**Filtering principles (high level):**
-- remove extremely low-resolution images
-- remove watermark/occlusion-heavy images that hide key morphology
-- remove category-mismatch / empty-sample images
-- remove images with severe blur or stacked instances that are not labelable
-
----
-
-## Annotation Protocol
-EO19 uses **LabelImg** for bounding-box annotation.
-
-Key protocol principles:
-- annotators first learn the key morphological traits for assigned categories
-- (recommended) one annotator per category to reduce cross-person inconsistency
-- bounding boxes should fully cover the insect body while minimizing background inclusion
-- during annotation, unqualified images are removed and replaced to keep category continuity
-- final annotations are verified by agricultural entomology experts
 
 ---
 
@@ -141,7 +59,7 @@ Key protocol principles:
 - Split ratio: **train : val : test = 8 : 1 : 1**
 - Split is performed **within each category** to preserve per-category proportions across subsets.
 
-### COCO format:
+### COCO Format (JSON)
 ```text
 EO19_JSON/
   images/
@@ -154,7 +72,23 @@ EO19_JSON/
     test.json
 ```
 
-### TXT format
+### XML Format (Pascal VOC)
+```text
+EO19_XML/
+  training/
+    images/
+    labels/
+  val/
+    images/
+    labels/
+  test/
+    images/
+    labels/
+```
+
+> In XML format, each image should have a corresponding annotation file in the `labels/` folder with the same filename stem.
+
+### TXT Format (YOLO-style)
 ```text
 EO19_TXT/
   training/
@@ -166,20 +100,24 @@ EO19_TXT/
   test/
     images/
     labels/
-  classes.docx
+  classes.txt
 ```
+
+> In TXT format, each image should have a corresponding `.txt` annotation file in the `labels/` folder with the same filename stem.  
+> Each line in a label file follows the YOLO format: `<class_id> <x_center> <y_center> <width> <height>` (normalized).
 
 ---
 
 ## Annotations & Formats
 - Primary annotation format: **Pascal VOC XML**
-- Export formats: **YOLO TXT**, **COCO-like JSON**
-- Conversion is done via scripts to ensure consistency across formats (TBA: scripts will be published after acceptance).
+- Export formats: **YOLO TXT**, **COCO JSON**
+- Annotation tool: **LabelImg**
+- Conversion is done via scripts to ensure consistency across formats (TBA: scripts will be published after acceptance)
+- Final annotations are verified by agricultural entomology experts
 
 > Practical note: keep class ID mapping fixed once released. Any change in category ordering will break reproducibility.
 
 ---
-
 ## Quick Start
 
 ### 1) Set dataset root
@@ -197,6 +135,21 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
 > **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
 ---
 
+## YOLO-based Baselines (Ultralytics / official YOLO codebases)
+
+Use each YOLO framework’s **native evaluation pipeline**.  
+Only modify the following:
+
+- dataset path in the dataset YAML (e.g., `path: ${EO19_ROOT}`)
+- annotation / split references (`train`, `val`, `test`)
+- number of classes (`nc: 30`)
+- class names (if required by the framework)
+
+> Keep all other settings unchanged to preserve fair baseline comparison.  
+> For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/).
+
+---
+
 ## Baselines & Evaluation
 
 ### Models covered
@@ -209,7 +162,7 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
 
 **YOLO-family (YOLO-style metrics):**
 - YOLOv8n
-- YOLO11n
+- YOLOv11n
 - YOLOv12n
 - YOLOv13n
 
@@ -221,13 +174,13 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
     - `AP50 := mAP50`
 
 ### Two-round taxonomy comparison (paper ablation summary)
-EO19’s life-stage-aware taxonomy generally improves recognition boundaries.
+EO19’s life-stage-aware taxonomy generally improves recognition boundaries.  
 However, long-tailed distributions can mask this advantage; after controlling long-tail influence, the majority of categories show improved performance under the refined taxonomy (details in paper).
 
 ---
 
 ## Model Zoo & Results
-All values are reported in **[0, 1]** scale on the EO19 validation split.
+All values are reported in **[0, 1]** scale on the EO19 validation split.  
 This public preview lists the headline numbers; detailed logs/configs are TBA.
 
 ### DETR-family (COCO AP metrics)
@@ -246,14 +199,14 @@ This public preview lists the headline numbers; detailed logs/configs are TBA.
 | Model | Precision | Recall | F1 | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|---:|
 | YOLOv8n  | 0.807 | 0.740 | 0.772 | 0.806 | 0.608 |
-| YOLO11n  | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
+| YOLOv11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
 | **YOLOv12n** | **0.881** | **0.812** | **0.845** | **0.869** | **0.675** |
 | YOLOv13n | 0.879 | 0.811 | 0.844 | 0.869 | 0.674 |
 
 ---
 
 ## Eigen-CAM Visualizations
-We use **Eigen-CAM** to qualitatively inspect where detectors attend on EO19 images.
+We use **Eigen-CAM** to qualitatively inspect where detectors attend on EO19 images.  
 Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
 - gradient-free → typically more stable on small objects
 - captures global morphology cues (e.g., wing venation, dorsal plates, antennae, segmentation)
@@ -313,10 +266,10 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
 <table width="100%">
   <tr>
     <th width="20%" align="center">Input</th>
-    <th width="20%" align="center">YOLOv11</th>
-    <th width="20%" align="center">YOLOv8</th>
-    <th width="20%" align="center">YOLOv12</th>
-    <th width="20%" align="center">YOLOv13</th>
+    <th width="20%" align="center">YOLOv11n</th>
+    <th width="20%" align="center">YOLOv8n</th>
+    <th width="20%" align="center">YOLOv12n</th>
+    <th width="20%" align="center">YOLOv13n</th>
   </tr>
 
   <tr>
