@@ -1,195 +1,131 @@
-# EO19: A Large-Scale Insect Detection Dataset and Multi-Model Performance Assessment
+# EO19: A Large-Scale Insect Detection Dataset
 
-> **Public Preview (Under Review)**  
-> This repository is a **public preview** prepared for the EO19 paper.  
-> Since the paper/dataset is **not yet published**, the following items are intentionally omitted from this public version:
-> - Dataset download links / private storage
-> - Full author list & affiliations
-> - Trained checkpoints (`.pth`) and any private keys/tokens
-> - Machine-specific absolute paths and internal logs
->
-> Placeholders used in this README:
-> - **TODO**: to be filled after publication (final info not ready yet)
-> - **TBA**: to be announced later
->
-> **Paper:** TBA (PDF / arXiv / project page)  
-> **Dataset release:** TBA (may be annotations-only / partial release, depending on source licenses)  
-> **Authors:** TODO
+> **Public Preview · Under Review**  
+> Dataset links, full author list, trained checkpoints, and private paths are withheld pending publication.  
+> **Paper / Dataset release:** TBA &nbsp;|&nbsp; **Authors:** TODO
 
 ---
 
-## Contents
-- [Introduction](#introduction)
-- [Dataset Versions](#dataset-versions)
-- [Data Split](#data-split)
-- [Annotations & Formats](#annotations--formats)
-- [Quick Start](#quick-start)
-- [Taxonomy Ablation (Original vs Augmented)](#taxonomy-ablation-original-vs-augmented)
-- [Model Zoo & Results](#model-zoo--results)
-- [Eigen-CAM Visualizations](#eigen-cam-visualizations)
-- [Download](#download)
-- [Citation](#citation)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+## Overview
 
----
+EO19 is a family-level, life-stage-aware insect detection dataset for agricultural pest monitoring.
 
-## Introduction
-EO19 is an insect detection dataset designed for agricultural pest monitoring.
-
-It organizes categories at the **family** level and introduces a **life-stage-aware labeling rule**:
-for holometabolous families, **Adult** and **Larva** are annotated as **two separate categories** to reduce intra-class appearance conflicts.
-
-### EO19 summary
-- **Taxonomy:** Class Insecta → **4 orders**, **19 families**, **30 categories**
-- **Images:** **24,626**
-- **Life-stage split:** **11 holometabolous families** split into **Adult / Larva** (→ 22 categories)
-- **Hemimetabolous:** **8 families** kept as single categories (→ 8 categories)
-- **Annotations:** bounding-box detection labels
-- **Formats:** Pascal VOC (XML, primary source), exported to YOLO (TXT) and COCO JSON
-- **Baseline coverage:** DETR-family and YOLO-family detectors + interpretability via Eigen-CAM
-
-EO19 images are collected from screened/cleaned public sources and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
-
-> Note: Final dataset release form will follow original source licenses and publication policy (TBA).
+| Item | Value |
+|---|---|
+| Taxonomy | Class Insecta → 4 orders, 19 families, **30 categories** |
+| Images | **24,626** |
+| Life-stage split | 11 holometabolous families → Adult / Larva (22 categories); 8 hemimetabolous families kept as-is (8 categories) |
+| Annotation type | Bounding-box detection |
+| Primary format | Pascal VOC XML (also exported to YOLO TXT and COCO JSON) |
+| Annotation tool | LabelImg, verified by entomology experts |
 
 ---
 
 ## Dataset Versions
-We provide **two dataset versions**:
 
-1) **EO19-Original (Raw)**  
-   The original dataset following the real-world collected distribution (long-tailed category counts).
-
-2) **EO19-Augmented (Long-tail Mitigated)**  
-   A balanced version designed to reduce long-tail effects. We apply data augmentation (random cropping, translation, rotation, brightness adjustment, Gaussian noise, horizontal flipping, and occlusion) while ensuring target visibility, and then **downsample each category to 1,000 images** to equalize per-class counts.
-
-> The augmented version is intended for controlled comparisons and for studying long-tail robustness.
+| Version | Description |
+|---|---|
+| **EO19-Original** | Real-world collected distribution (long-tailed) |
+| **EO19-Augmented** | Long-tail mitigated — augmented then downsampled to **1,000 images/category** |
 
 ---
 
 ## Data Split
-- Split ratio: **train : val : test = 8 : 1 : 1**
-- Split is performed **within each category** to preserve per-category proportions across subsets.
 
-### COCO Format (JSON)
-```text
-EO19_JSON/
-  images/
-    train/
-    val/
-    test/
-  annotations/
-    train.json
-    val.json
-    test.json
+Train : Val : Test = **8 : 1 : 1**, stratified within each category.
+
+<details>
+<summary>Directory structure</summary>
+
 ```
+EO19_JSON/          # COCO JSON
+  images/{train,val,test}/
+  annotations/{train,val,test}.json
 
-### XML Format (Pascal VOC)
-```text
-EO19_XML/
-  training/
-    images/
-    labels/
-  val/
-    images/
-    labels/
-  test/
-    images/
-    labels/
-```
+EO19_XML/           # Pascal VOC
+  {training,val,test}/{images,labels}/
 
-> In XML format, each image should have a corresponding annotation file in the `labels/` folder with the same filename stem.  
-> Note: XML/TXT splits use `training/` as the train folder name.
-
-### TXT Format (YOLO-style)
-```text
-EO19_TXT/
-  training/
-    images/
-    labels/
-  val/
-    images/
-    labels/
-  test/
-    images/
-    labels/
+EO19_TXT/           # YOLO TXT
+  {training,val,test}/{images,labels}/
   classes.txt
 ```
 
-> In TXT format, each image should have a corresponding `.txt` annotation file in the `labels/` folder with the same filename stem.  
-> Each line in a label file follows the YOLO format: `<class_id> <x_center> <y_center> <width> <height>` (normalized).
+> TXT label format: `<class_id> <x_center> <y_center> <width> <height>` (normalized).  
+> XML/TXT splits use `training/` (not `train/`) as the train folder name.
 
----
-
-## Annotations & Formats
-- Primary annotation format: **Pascal VOC XML**
-- Export formats: **YOLO TXT**, **COCO JSON**
-- Annotation tool: **LabelImg**
-- Conversion is done via scripts to ensure consistency across formats (TBA: scripts will be published after acceptance)
-- Final annotations are verified by agricultural entomology experts
-
-> Practical note: keep class ID mapping fixed once released. Any change in category ordering will break reproducibility.
+</details>
 
 ---
 
 ## Quick Start
 
-### 1) Set dataset root
 ```bash
-export EO19_ROOT=/path/to/EO19
+export EO19_ROOT=/path/to/EO19   # point to Original or Augmented
 ```
 
-> Tip: Point `${EO19_ROOT}` to either **EO19-Original** or **EO19-Augmented**, depending on which version you want to run.
+Key config changes for any framework:
 
-### 2) Update framework configurations
-Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, please use their native evaluation pipelines. Keep all model-specific settings unchanged and **only modify the following dataset settings**:
+- **Dataset path** → `$EO19_ROOT`
+- **Class count** → `num_classes = 30` (DETR) / `nc: 30` (YOLO)
+- **Split paths** → update `ann_file` / `img_prefix` (DETR) or `train`/`val`/`test` keys (YOLO)
 
-- **Dataset Path:** Point to your dataset root (e.g., `data_root: ${EO19_ROOT}` for DETR, or `path: ${EO19_ROOT}` for YOLO).
-- **Images & Annotations:** Update the paths to your image folders and annotation files (e.g., `img_prefix` & `ann_file` for DETR, or `train`/`val`/`test` split references for YOLO).
-- **Class Configuration:** EO19 uses **30** categories. Ensure the class count is updated (e.g., `num_classes = 30` for DETR, or `nc: 30` for YOLO). Update class names if required by the framework.
+---
 
-> **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
+## Model Zoo
 
-## Model Zoo & Results
-All values are reported in **[0, 1]** scale on the EO19 validation split.  
-This public preview lists the headline numbers; detailed logs/configs are TBA.
+All metrics on the **validation split**, scale **[0, 1]**.
 
-**Metrics note:**  
-- DETR-family reports COCO-style AP metrics (AP, AP50, AP75, AP_S/M/L).  
-- YOLO-family reports Precision/Recall/F1 and mAP50/mAP50-95. For consistency, we map `AP := mAP50-95` and `AP50 := mAP50`.
+### DETR-family (COCO AP)
 
-### DETR-family (COCO AP metrics)
 | Model | Backbone | AP | AP50 | AP75 | AP_S | AP_M | AP_L |
 |---|---|---:|---:|---:|---:|---:|---:|
-| **Co-DINO (ViT-L, 5-scale)** | ViT-L | 0.733 | 0.928 | 0.798 | 0.411 | 0.580 | 0.817 |
-| D-FINE Large | HGNetv2 | 0.701 | 0.900 | 0.762 | 0.321 | 0.534 | 0.799 |
-| D-FINE Medium | HGNetv2 | 0.693 | 0.885 | 0.756 | 0.282 | 0.524 | 0.792 |
+| **Co-DINO (ViT-L, 5-scale)** | ViT-L | **0.733** | **0.928** | **0.798** | **0.411** | **0.580** | **0.817** |
+| D-FINE-L | HGNetv2 | 0.701 | 0.900 | 0.762 | 0.321 | 0.534 | 0.799 |
+| D-FINE-M | HGNetv2 | 0.693 | 0.885 | 0.756 | 0.282 | 0.524 | 0.792 |
 | DEIM v1 | HGNetv2 | 0.692 | 0.887 | 0.754 | 0.309 | 0.545 | 0.794 |
 | RT-DETR v2 | ResNet-18 | 0.666 | 0.866 | 0.729 | 0.277 | 0.492 | 0.770 |
 | Co-DETR | ResNet-50 | 0.611 | 0.814 | 0.668 | 0.218 | 0.408 | 0.720 |
 
-> Note: Some numbers may be updated in the camera-ready / errata release. Treat the final paper + official release as the source of truth.
+### YOLO-family
 
-### YOLO-family (YOLO metrics)
 | Model | Precision | Recall | F1 | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|---:|
-| YOLOv8n  | 0.807 | 0.740 | 0.772 | 0.806 | 0.608 |
-| YOLOv11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
 | **YOLOv12n** | **0.881** | **0.812** | **0.845** | **0.869** | **0.675** |
 | YOLOv13n | 0.879 | 0.811 | 0.844 | 0.869 | 0.674 |
+| YOLOv11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
+| YOLOv8n | 0.807 | 0.740 | 0.772 | 0.806 | 0.608 |
+
+---
+
+## Taxonomy Ablation
+
+Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditional no-split taxonomy (Control) using **YOLOv12n** (3 runs + avg).
+
+### Round 1 — EO19-Original
+
+| Group | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|
+| Experimental (avg) | 0.881 | 0.812 | 0.869 | **0.675** |
+| Control (avg) | 0.894 | 0.837 | **0.898** | 0.670 |
+
+> Control avg corrected from original manuscript (copy/typo in the paper).
+
+### Round 2 — EO19-Augmented (1,000 imgs/category)
+
+| Group | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|
+| Experimental (avg) | **0.920** | **0.898** | **0.940** | **0.734** |
+| Control (avg) | 0.874 | 0.821 | 0.881 | 0.660 |
+
+> Under balanced conditions, the life-stage-aware taxonomy yields clear gains across all metrics.
 
 ---
 
 ## Eigen-CAM Visualizations
-We use **Eigen-CAM** to qualitatively inspect where detectors attend on EO19 images.  
-Compared to gradient-based methods, Eigen-CAM is:
-- gradient-free → typically more stable on small objects
-- captures global morphology cues (e.g., wing venation, dorsal plates, antennae, segmentation)
-- tends to suppress background interference and is more consistent across architectures
 
-### DETR result
+Eigen-CAM is used to inspect detector attention (gradient-free, stable on small objects).
+
+### DETR
 
 <table width="100%">
   <tr>
@@ -238,7 +174,7 @@ Compared to gradient-based methods, Eigen-CAM is:
   </tr>
 </table>
 
-### YOLO result
+### YOLO
 
 <table width="100%">
   <tr>
@@ -284,77 +220,33 @@ Compared to gradient-based methods, Eigen-CAM is:
 
 ---
 
----
-
-## Taxonomy Ablation (Original vs Augmented)
-To study the impact of EO19's **life-stage-aware taxonomy** under long-tailed vs balanced settings, we report the two-round comparative results from the paper using **YOLOv12n** (3 runs + average).
-
-- **Experimental group:** EO19 taxonomy (holometabolous families split into Adult/Larva).
-- **Control group:** Traditional taxonomy (no Adult/Larva split within holometabolous families).
-
-### Round 1 (EO19-Original / Raw)
-| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|---:|
-| Experimental | 1 | 0.883 | 0.809 | 0.872 | 0.677 |
-|  | 2 | 0.880 | 0.817 | 0.870 | 0.675 |
-|  | 3 | 0.880 | 0.809 | 0.866 | 0.674 |
-|  | **avg** | **0.881** | **0.812** | **0.869** | **0.675** |
-| Control | 1 | 0.890 | 0.843 | 0.901 | 0.674 |
-|  | 2 | 0.897 | 0.831 | 0.895 | 0.667 |
-|  | 3 | 0.894 | 0.837 | 0.898 | 0.670 |
-|  | **avg (corrected)** | **0.894** | **0.837** | **0.898** | **0.670** |
-
-> Note: The Control-group average in the original manuscript table was a copy/typo; the **avg (corrected)** row above is recomputed from the three runs.
-
-### Round 2 (EO19-Augmented / Long-tail mitigated)
-In this round, data augmentation is applied and then each category is downsampled to **1,000 images** to eliminate the long-tail effect.
-
-| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|---:|
-| Experimental | 1 | 0.922 | 0.901 | 0.940 | 0.733 |
-|  | 2 | 0.922 | 0.897 | 0.941 | 0.735 |
-|  | 3 | 0.917 | 0.895 | 0.939 | 0.734 |
-|  | **avg** | **0.920** | **0.898** | **0.940** | **0.734** |
-| Control | 1 | 0.872 | 0.824 | 0.884 | 0.662 |
-|  | 2 | 0.881 | 0.814 | 0.880 | 0.660 |
-|  | 3 | 0.868 | 0.825 | 0.879 | 0.658 |
-|  | **avg** | **0.874** | **0.821** | **0.881** | **0.660** |
-
----
-
 ## Download
-- Dataset: TBA
-- Checksums: TBA
-- Release form: TBA (will comply with original source licenses and publication policy)
+
+Dataset, checksums, and release details: **TBA** (will comply with source licenses).
 
 ---
 
 ## Citation
+
 ```bibtex
 @misc{EO19_2026,
-  title   = {EO19: A Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring},
-  author  = {TODO},
-  year    = {2026},
-  note    = {Technical report / paper under review},
-  url     = {TBA}
+  title  = {EO19: A Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring},
+  author = {TODO},
+  year   = {2026},
+  note   = {Under review},
+  url    = {TBA}
 }
 ```
 
 ---
 
 ## License
-- Paper/text: TODO
-- Dataset: TODO (e.g., CC BY-NC 4.0 / research-only, subject to source licenses)
-- Code: TODO (e.g., Apache-2.0 / MIT)
+
+Paper / Dataset / Code: **TODO** (dataset likely CC BY-NC 4.0, subject to source licenses).
 
 ---
 
-## Contact
-- GitHub: https://github.com/chfff123
-- Email: TODO
+## Contact & Acknowledgements
 
----
-
-## Acknowledgements
-- IP102 dataset (screened and cleaned as a major image source)
-- Thanks to agriculture experts for verification and label auditing
+- GitHub: https://github.com/chfff123 &nbsp;|&nbsp; Email: TODO
+- Built on [IP102](https://github.com/xpwu95/IP102) (screened/cleaned as a primary image source). Thanks to agricultural entomology experts for label verification.
