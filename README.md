@@ -11,10 +11,10 @@
 > Placeholders used in this README:
 > - **TODO**: to be filled after publication (final info not ready yet)
 > - **TBA**: to be announced later
-
-- **Paper:** TBA (PDF / arXiv / project page)
-- **Dataset release:** TBA (may be annotations-only / partial release, depending on source licenses)
-- **Authors:** TODO
+>
+> **Paper:** TBA (PDF / arXiv / project page)  
+> **Dataset release:** TBA (may be annotations-only / partial release, depending on source licenses)  
+> **Authors:** TODO
 
 ---
 
@@ -23,7 +23,6 @@
 - [Data Split](#data-split)
 - [Annotations & Formats](#annotations--formats)
 - [Quick Start](#quick-start)
-- [Baselines & Evaluation](#baselines--evaluation)
 - [Model Zoo & Results](#model-zoo--results)
 - [Eigen-CAM Visualizations](#eigen-cam-visualizations)
 - [Download](#download)
@@ -49,7 +48,7 @@ for holometabolous families, **Adult** and **Larva** are annotated as **two sepa
 - **Formats:** Pascal VOC (XML, primary source), exported to YOLO (TXT) and COCO JSON
 - **Baseline coverage:** DETR-family and YOLO-family detectors + interpretability via Eigen-CAM
 
-EO19 images are collected from screened/cleaned public sources (including IP102 as a major source) and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
+EO19 images are collected from screened/cleaned public sources (including IP102 as a major image source) and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
 
 > Note: Final dataset release form will follow original source licenses and publication policy (TBA).
 
@@ -86,7 +85,8 @@ EO19_XML/
     labels/
 ```
 
-> In XML format, each image should have a corresponding annotation file in the `labels/` folder with the same filename stem.
+> In XML format, each image should have a corresponding annotation file in the `labels/` folder with the same filename stem.  
+> Note: XML/TXT splits use `training/` as the train folder name.
 
 ### TXT Format (YOLO-style)
 ```text
@@ -118,6 +118,7 @@ EO19_TXT/
 > Practical note: keep class ID mapping fixed once released. Any change in category ordering will break reproducibility.
 
 ---
+
 ## Quick Start
 
 ### 1) Set dataset root
@@ -133,11 +134,16 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
 - **Class Configuration:** EO19 uses **30** categories. Ensure the class count is updated (e.g., `num_classes = 30` for DETR, or `nc: 30` for YOLO). Update class names if required by the framework.
 
 > **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
+
 ---
 
 ## Model Zoo & Results
 All values are reported in **[0, 1]** scale on the EO19 validation split.  
 This public preview lists the headline numbers; detailed logs/configs are TBA.
+
+**Metrics note:**  
+- DETR-family reports COCO-style AP metrics (AP, AP50, AP75, AP_S/M/L).  
+- YOLO-family reports Precision/Recall/F1 and mAP50/mAP50-95. For consistency, we map `AP := mAP50-95` and `AP50 := mAP50`.
 
 ### DETR-family (COCO AP metrics)
 | Model | Backbone | AP | AP50 | AP75 | AP_S | AP_M | AP_L |
@@ -212,7 +218,7 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
     <td align="center"><img src="https://github.com/user-attachments/assets/526c660d-8db4-431a-a486-252fa96f5f51" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/8e2f2624-726f-4d1b-999a-48ee9394f758" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/f1c51f8f-d4d9-490a-8b38-2b0e66769480" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/e67e858b-4d19-4daa-bf41-39028385a60e" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/39028385a60e" width="100%" /></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/10a1a634-666a-4133-bf89-da480a86d164" width="100%" /></td>
   </tr>
 </table>
