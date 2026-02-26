@@ -233,8 +233,6 @@ Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditio
 
 ---
 
----
-
 ## Download
 
 Dataset, checksums, and release details: **TBA**.
