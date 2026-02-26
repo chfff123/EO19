@@ -38,15 +38,37 @@ Train : Val : Test = **8 : 1 : 1**, stratified within each category.
 <summary>Directory structure</summary>
 
 ```
-EO19_JSON/          # COCO JSON
-  images/{train,val,test}/
-  annotations/{train,val,test}.json
+EO19_JSON/  # COCO JSON
+  images/
+    train/
+    val/
+    test/
+  annotations/
+    train.json
+    val.json
+    test.json
 
-EO19_XML/           # Pascal VOC
-  {training,val,test}/{images,labels}/
+EO19_XML/  # Pascal VOC
+  training/
+    images/
+    labels/
+  val/
+    images/
+    labels/
+  test/
+    images/
+    labels/
 
-EO19_TXT/           # YOLO TXT
-  {training,val,test}/{images,labels}/
+EO19_TXT/  # YOLO TXT
+  training/
+    images/
+    labels/
+  val/
+    images/
+    labels/
+  test/
+    images/
+    labels/
   classes.txt
 ```
 
@@ -73,13 +95,13 @@ Key config changes for any framework:
 
 ## Model Zoo
 
-All metrics on the **validation split**, scale **[0, 1]**.
+All metrics on the **EO19-Original validation split**, scale **[0, 1]**.
 
 ### DETR-family (COCO AP)
 
 | Model | Backbone | AP | AP50 | AP75 | AP_S | AP_M | AP_L |
 |---|---|---:|---:|---:|---:|---:|---:|
-| **Co-DINO (ViT-L, 5-scale)** | ViT-L | **0.733** | **0.928** | **0.798** | **0.411** | **0.580** | **0.817** |
+| Co-DINO (ViT-L, 5-scale) | ViT-L | 0.733 | 0.928 | 0.798 | 0.411 | 0.580 | 0.817 |
 | D-FINE-L | HGNetv2 | 0.701 | 0.900 | 0.762 | 0.321 | 0.534 | 0.799 |
 | D-FINE-M | HGNetv2 | 0.693 | 0.885 | 0.756 | 0.282 | 0.524 | 0.792 |
 | DEIM v1 | HGNetv2 | 0.692 | 0.887 | 0.754 | 0.309 | 0.545 | 0.794 |
@@ -90,87 +112,53 @@ All metrics on the **validation split**, scale **[0, 1]**.
 
 | Model | Precision | Recall | F1 | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|---:|
-| **YOLOv12n** | **0.881** | **0.812** | **0.845** | **0.869** | **0.675** |
+| YOLOv12n | 0.881 | 0.812 | 0.845 | 0.869 | 0.675 |
 | YOLOv13n | 0.879 | 0.811 | 0.844 | 0.869 | 0.674 |
 | YOLOv11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
 | YOLOv8n | 0.807 | 0.740 | 0.772 | 0.806 | 0.608 |
 
----
-
-## Taxonomy Ablation
-
-Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditional no-split taxonomy (Control) using **YOLOv12n** (3 runs + avg).
-
-### Round 1 — EO19-Original
-
-| Group | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|
-| Experimental (avg) | 0.881 | 0.812 | 0.869 | **0.675** |
-| Control (avg) | 0.894 | 0.837 | **0.898** | 0.670 |
-
-> Control avg corrected from original manuscript (copy/typo in the paper).
-
-### Round 2 — EO19-Augmented (1,000 imgs/category)
-
-| Group | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|
-| Experimental (avg) | **0.920** | **0.898** | **0.940** | **0.734** |
-| Control (avg) | 0.874 | 0.821 | 0.881 | 0.660 |
-
-> Under balanced conditions, the life-stage-aware taxonomy yields clear gains across all metrics.
-
----
 
 ## Eigen-CAM Visualizations
 
-Eigen-CAM is used to inspect detector attention (gradient-free, stable on small objects).
+Eigen-CAM is used to inspect detector attention (gradient-free, stable on small objects). All samples are from **EO19-Original**.
 
 ### DETR
 
 <table width="100%">
   <tr>
-    <th width="16%" align="center">Input</th>
-    <th width="16%" align="center">Co-DINO</th>
-    <th width="16%" align="center">Co-DETR</th>
-    <th width="16%" align="center">RT-DETR</th>
-    <th width="16%" align="center">D-FINE-L</th>
-    <th width="16%" align="center">DEIM</th>
+    <th align="center">Input</th><th align="center">Co-DINO</th><th align="center">Co-DETR</th><th align="center">RT-DETR</th><th align="center">D-FINE-L</th><th align="center">DEIM</th>
   </tr>
-
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/63ed81de-4d4f-481f-8aa8-18f1fd4f8eb7" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/704c36d4-9d54-4540-9e28-df9b461f4046" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/4e7b2f38-c06f-439a-a966-5b36c1e75f78" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/26b0ed55-c927-4888-8612-055a20075209" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/bfd2cf75-301f-493d-9adc-736a5c114ab4" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/0aa783c8-3068-4512-bfda-dcc69919cdb2" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/63ed81de-4d4f-481f-8aa8-18f1fd4f8eb7" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/704c36d4-9d54-4540-9e28-df9b461f4046" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/4e7b2f38-c06f-439a-a966-5b36c1e75f78" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/26b0ed55-c927-4888-8612-055a20075209" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/bfd2cf75-301f-493d-9adc-736a5c114ab4" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/0aa783c8-3068-4512-bfda-dcc69919cdb2" width="100%"/></td>
   </tr>
-
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/c0f23b81-6b42-432c-9fc9-7fc99c6cb75c" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/76a56231-7bb9-4f36-a860-bf096cd5dd91" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/7398aa5b-a3bf-4b80-91df-0f4da75aa270" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/ca109e1f-aba7-44be-8f81-19ed6f0d086e" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/8adab51b-633f-468d-a5f5-dda02d024e55" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/ea289851-a18b-4265-94e2-eef8ccffb52e" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/c0f23b81-6b42-432c-9fc9-7fc99c6cb75c" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/76a56231-7bb9-4f36-a860-bf096cd5dd91" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/7398aa5b-a3bf-4b80-91df-0f4da75aa270" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/ca109e1f-aba7-44be-8f81-19ed6f0d086e" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/8adab51b-633f-468d-a5f5-dda02d024e55" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/ea289851-a18b-4265-94e2-eef8ccffb52e" width="100%"/></td>
   </tr>
-
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/eba5deb5-f5fa-441c-a15b-19b7d7797f18" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/b363a23a-074f-4088-9510-1c8a42f25fad" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/f352f7fd-573a-47af-8e7e-e95e40d51763" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/913d2f23-4613-420c-91b9-c7cafc6c5d70" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/830ae023-94d9-4578-bc73-dfc615982ae2" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/8b8be1ed-d469-4d75-9814-7b08a721f1d4" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/eba5deb5-f5fa-441c-a15b-19b7d7797f18" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/b363a23a-074f-4088-9510-1c8a42f25fad" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/f352f7fd-573a-47af-8e7e-e95e40d51763" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/913d2f23-4613-420c-91b9-c7cafc6c5d70" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/830ae023-94d9-4578-bc73-dfc615982ae2" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/8b8be1ed-d469-4d75-9814-7b08a721f1d4" width="100%"/></td>
   </tr>
-
   <tr>
-    <td align="center"><img src="https://github.com/user-attachments/assets/f9832c66-60ee-4338-a968-2977d2a0bd9f" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/526c660d-8db4-431a-a486-252fa96f5f51" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/8e2f2624-726f-4d1b-999a-48ee9394f758" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/f1c51f8f-d4d9-490a-8b38-2b0e66769480" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/e67e858b-4d19-4daa-bf41-39028385a60e" width="100%" /></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/10a1a634-666a-4133-bf89-da480a86d164" width="100%" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/f9832c66-60ee-4338-a968-2977d2a0bd9f" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/526c660d-8db4-431a-a486-252fa96f5f51" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/8e2f2624-726f-4d1b-999a-48ee9394f758" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/f1c51f8f-d4d9-490a-8b38-2b0e66769480" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/e67e858b-4d19-4daa-bf41-39028385a60e" width="100%"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/10a1a634-666a-4133-bf89-da480a86d164" width="100%"/></td>
   </tr>
 </table>
 
@@ -220,9 +208,35 @@ Eigen-CAM is used to inspect detector attention (gradient-free, stable on small 
 
 ---
 
+## Long-tailed vs Balanced
+
+Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditional no-split taxonomy (Control) using **YOLOv12n** (3 runs + avg).
+
+### Round 1 — EO19-Original
+
+| Group | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|
+| Experimental (avg) | 0.881 | 0.812 | 0.869 | **0.675** |
+| Control (avg) | 0.894 | 0.837 | **0.898** | 0.670 |
+
+> Control avg corrected from original manuscript (copy/typo in the paper).
+
+### Round 2 — EO19-Augmented (1,000 imgs/category)
+
+| Group | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|
+| Experimental (avg) | **0.920** | **0.898** | **0.940** | **0.734** |
+| Control (avg) | 0.874 | 0.821 | 0.881 | 0.660 |
+
+> Under balanced conditions, the life-stage-aware taxonomy yields clear gains across all metrics.
+
+---
+
+---
+
 ## Download
 
-Dataset, checksums, and release details: **TBA** (will comply with source licenses).
+Dataset, checksums, and release details: **TBA**.
 
 ---
 
@@ -242,7 +256,7 @@ Dataset, checksums, and release details: **TBA** (will comply with source licens
 
 ## License
 
-Paper / Dataset / Code: **TODO** (dataset likely CC BY-NC 4.0, subject to source licenses).
+Paper / Dataset / Code: **TODO** .
 
 ---
 
