@@ -25,7 +25,7 @@ EO19 is a family-level, life-stage-aware insect detection dataset for agricultur
 
 | Version | Description |
 |---|---|
-| **EO19-Original** | Real-world collected distribution (long-tailed) |
+| **EO19-Original** | Real-world collected distribution |
 | **EO19-Augmented** | Long-tail mitigated — augmented then downsampled to **1,000 images/category** |
 
 ---
@@ -208,7 +208,7 @@ Eigen-CAM is used to inspect detector attention (gradient-free, stable on small 
 
 ---
 
-## Long-tailed vs Balanced
+## Raw vs Balanced
 
 Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditional no-split taxonomy (Control) using **YOLOv12n** (3 runs + avg).
 
