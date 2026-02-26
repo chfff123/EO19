@@ -2,7 +2,7 @@
 
 > **Public Preview · Under Review**  
 > Dataset links, full author list, trained checkpoints, and private paths are withheld pending publication.  
-> **Paper / Dataset release:** TBA &nbsp;|&nbsp; **Authors:** TODO
+> **Paper / Dataset release:** TBA &nbsp;|&nbsp; 
 
 ---
 
@@ -262,5 +262,5 @@ Paper / Dataset / Code: **TODO** .
 
 ## Contact & Acknowledgements
 
-- GitHub: https://github.com/chfff123 &nbsp;|&nbsp; Email: TODO
+- Email: TODO
 - Built on [IP102](https://github.com/xpwu95/IP102) (screened/cleaned as a primary image source). Thanks to agricultural entomology experts for label verification.
