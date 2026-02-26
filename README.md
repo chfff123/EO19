@@ -1,4 +1,4 @@
-# EO19: A Large-Scale Insect Detection Dataset
+# EO19: A Large Dataset Construction for Insect Identification and Multi-Model Performance Assessment
 
 > **Public Preview · Under Review**  
 > Dataset links, full author list, trained checkpoints, and private paths are withheld pending publication.  
