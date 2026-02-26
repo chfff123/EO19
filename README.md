@@ -184,7 +184,7 @@ This public preview lists the headline numbers; detailed logs/configs are TBA.
 
 ## Eigen-CAM Visualizations
 We use **Eigen-CAM** to qualitatively inspect where detectors attend on EO19 images.  
-Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
+Compared to gradient-based methods, Eigen-CAM is:
 - gradient-free → typically more stable on small objects
 - captures global morphology cues (e.g., wing venation, dorsal plates, antennae, segmentation)
 - tends to suppress background interference and is more consistent across architectures
