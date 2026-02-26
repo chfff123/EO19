@@ -2,7 +2,7 @@
 
 > **Public Preview · Under Review**  
 > Dataset links, full author list, trained checkpoints, and private paths are withheld pending publication.  
-> **Paper / Dataset release:** TBA &nbsp;|&nbsp; 
+> **Paper / Dataset release:** TBA 
 
 ---
 
