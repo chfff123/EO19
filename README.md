@@ -220,8 +220,6 @@ Comparing EO19's **life-stage-aware taxonomy** (Experimental) against a traditio
 | Experimental (avg) | 0.881 | 0.812 | 0.869 | **0.675** |
 | Control (avg) | 0.894 | 0.837 | **0.898** | 0.670 |
 
-> Control avg corrected from original manuscript.
-
 ### Round 2 — EO19-Augmented (1,000 imgs/category)
 
 | Group | Precision | Recall | mAP50 | mAP50-95 |
