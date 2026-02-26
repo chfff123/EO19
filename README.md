@@ -259,5 +259,5 @@ Paper / Dataset / Code: **TODO** .
 
 ## Contact & Acknowledgements
 
-- Email: TODO
+- Email: BDing81@outlook.com
 - Built on [IP102](https://github.com/xpwu95/IP102) (screened/cleaned as a primary image source). Thanks to agricultural entomology experts for label verification.
