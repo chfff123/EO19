@@ -38,7 +38,7 @@
 ## Introduction
 EO19 is an insect detection dataset designed for agricultural pest monitoring.
 
-It organizes categories at the **family** level (Latin names) and introduces a **life-stage-aware labeling rule**:
+It organizes categories at the **family** level and introduces a **life-stage-aware labeling rule**:
 for holometabolous families, **Adult** and **Larva** are annotated as **two separate categories** to reduce intra-class appearance conflicts.
 
 ### EO19 summary
@@ -50,7 +50,7 @@ for holometabolous families, **Adult** and **Larva** are annotated as **two sepa
 - **Formats:** Pascal VOC (XML, primary source), exported to YOLO (TXT) and COCO JSON
 - **Baseline coverage:** DETR-family and YOLO-family detectors + interpretability via Eigen-CAM
 
-EO19 images are collected from screened/cleaned public sources (including IP102 as a major image source) and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
+EO19 images are collected from screened/cleaned public sources and web collection using Latin/English/Chinese/common names and species names, followed by a unified filtering strategy. Final annotations are verified with agricultural entomology expertise.
 
 > Note: Final dataset release form will follow original source licenses and publication policy (TBA).
 
@@ -59,10 +59,10 @@ EO19 images are collected from screened/cleaned public sources (including IP102 
 ## Dataset Versions
 We provide **two dataset versions**:
 
-1) **EO19-Original (Raw / Long-tailed)**  
+1) **EO19-Original (Raw)**  
    The original dataset following the real-world collected distribution (long-tailed category counts).
 
-2) **EO19-Augmented (Long-tail Mitigated / Balanced)**  
+2) **EO19-Augmented (Long-tail Mitigated)**  
    A balanced version designed to reduce long-tail effects. We apply data augmentation (random cropping, translation, rotation, brightness adjustment, Gaussian noise, horizontal flipping, and occlusion) while ensuring target visibility, and then **downsample each category to 1,000 images** to equalize per-class counts.
 
 > The augmented version is intended for controlled comparisons and for studying long-tail robustness.
@@ -151,44 +151,6 @@ Whether you are using DETR-based (e.g., MMDetection) or YOLO-based frameworks, p
 - **Class Configuration:** EO19 uses **30** categories. Ensure the class count is updated (e.g., `num_classes = 30` for DETR, or `nc: 30` for YOLO). Update class names if required by the framework.
 
 > **Note:** For YOLO-specific details, refer to the [official Ultralytics documentation](https://docs.ultralytics.com/). For DETR-based baselines, see your specific model's config files.
-
----
-
-## Taxonomy Ablation (Original vs Augmented)
-To study the impact of EO19's **life-stage-aware taxonomy** under long-tailed vs balanced settings, we report the two-round comparative results from the paper using **YOLOv12n** (3 runs + average).
-
-- **Experimental group:** EO19 taxonomy (holometabolous families split into Adult/Larva).
-- **Control group:** Traditional taxonomy (no Adult/Larva split within holometabolous families).
-
-### Round 1 (EO19-Original / Raw, long-tailed)
-| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|---:|
-| Experimental | 1 | 0.883 | 0.809 | 0.872 | 0.677 |
-|  | 2 | 0.880 | 0.817 | 0.870 | 0.675 |
-|  | 3 | 0.880 | 0.809 | 0.866 | 0.674 |
-|  | **avg** | **0.881** | **0.812** | **0.869** | **0.675** |
-| Control | 1 | 0.890 | 0.843 | 0.901 | 0.674 |
-|  | 2 | 0.897 | 0.831 | 0.895 | 0.667 |
-|  | 3 | 0.894 | 0.837 | 0.898 | 0.670 |
-|  | **avg (corrected)** | **0.894** | **0.837** | **0.898** | **0.670** |
-
-> Note: The Control-group average in the original manuscript table was a copy/typo; the **avg (corrected)** row above is recomputed from the three runs.
-
-### Round 2 (EO19-Augmented / Long-tail mitigated)
-In this round, data augmentation is applied and then each category is downsampled to **1,000 images** to eliminate the long-tail effect.
-
-| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
-|---|---:|---:|---:|---:|---:|
-| Experimental | 1 | 0.922 | 0.901 | 0.940 | 0.733 |
-|  | 2 | 0.922 | 0.897 | 0.941 | 0.735 |
-|  | 3 | 0.917 | 0.895 | 0.939 | 0.734 |
-|  | **avg** | **0.920** | **0.898** | **0.940** | **0.734** |
-| Control | 1 | 0.872 | 0.824 | 0.884 | 0.662 |
-|  | 2 | 0.881 | 0.814 | 0.880 | 0.660 |
-|  | 3 | 0.868 | 0.825 | 0.879 | 0.658 |
-|  | **avg** | **0.874** | **0.821** | **0.881** | **0.660** |
-
----
 
 ## Model Zoo & Results
 All values are reported in **[0, 1]** scale on the EO19 validation split.  
@@ -319,6 +281,44 @@ Compared to gradient-based methods (Grad-CAM/Grad-CAM++), Eigen-CAM is:
     <td align="center"><img src="https://github.com/user-attachments/assets/5aa38ae3-5039-4cad-9ed2-2b77a28ebef6" width="100%" /></td>
   </tr>
 </table>
+
+---
+
+---
+
+## Taxonomy Ablation (Original vs Augmented)
+To study the impact of EO19's **life-stage-aware taxonomy** under long-tailed vs balanced settings, we report the two-round comparative results from the paper using **YOLOv12n** (3 runs + average).
+
+- **Experimental group:** EO19 taxonomy (holometabolous families split into Adult/Larva).
+- **Control group:** Traditional taxonomy (no Adult/Larva split within holometabolous families).
+
+### Round 1 (EO19-Original / Raw)
+| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| Experimental | 1 | 0.883 | 0.809 | 0.872 | 0.677 |
+|  | 2 | 0.880 | 0.817 | 0.870 | 0.675 |
+|  | 3 | 0.880 | 0.809 | 0.866 | 0.674 |
+|  | **avg** | **0.881** | **0.812** | **0.869** | **0.675** |
+| Control | 1 | 0.890 | 0.843 | 0.901 | 0.674 |
+|  | 2 | 0.897 | 0.831 | 0.895 | 0.667 |
+|  | 3 | 0.894 | 0.837 | 0.898 | 0.670 |
+|  | **avg (corrected)** | **0.894** | **0.837** | **0.898** | **0.670** |
+
+> Note: The Control-group average in the original manuscript table was a copy/typo; the **avg (corrected)** row above is recomputed from the three runs.
+
+### Round 2 (EO19-Augmented / Long-tail mitigated)
+In this round, data augmentation is applied and then each category is downsampled to **1,000 images** to eliminate the long-tail effect.
+
+| Group | Run | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| Experimental | 1 | 0.922 | 0.901 | 0.940 | 0.733 |
+|  | 2 | 0.922 | 0.897 | 0.941 | 0.735 |
+|  | 3 | 0.917 | 0.895 | 0.939 | 0.734 |
+|  | **avg** | **0.920** | **0.898** | **0.940** | **0.734** |
+| Control | 1 | 0.872 | 0.824 | 0.884 | 0.662 |
+|  | 2 | 0.881 | 0.814 | 0.880 | 0.660 |
+|  | 3 | 0.868 | 0.825 | 0.879 | 0.658 |
+|  | **avg** | **0.874** | **0.821** | **0.881** | **0.660** |
 
 ---
 
