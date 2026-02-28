@@ -115,7 +115,7 @@ All metrics on the **EO19-Original validation split**, scale **[0, 1]**.
 |---|---:|---:|---:|---:|---:|
 | YOLOv12n | 0.881 | 0.812 | 0.845 | 0.869 | 0.675 |
 | YOLOv13n | 0.879 | 0.811 | 0.844 | 0.869 | 0.674 |
-| YOLOv11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
+| YOLO11n | 0.847 | 0.736 | 0.788 | 0.813 | 0.612 |
 | YOLOv8n | 0.807 | 0.740 | 0.772 | 0.806 | 0.608 |
 
 
@@ -168,7 +168,7 @@ Eigen-CAM is used to inspect detector attention (gradient-free, stable on small 
 <table width="100%">
   <tr>
     <th width="20%" align="center">Input</th>
-    <th width="20%" align="center">YOLOv11n</th>
+    <th width="20%" align="center">YOLO11n</th>
     <th width="20%" align="center">YOLOv8n</th>
     <th width="20%" align="center">YOLOv12n</th>
     <th width="20%" align="center">YOLOv13n</th>
