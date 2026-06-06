@@ -214,7 +214,7 @@ Because the baseline detectors were trained using different upstream repositorie
 | Co-DETR | 3.7.12 | 1.11.0 | 0.12.0 | 11.3 | 8.2 | 1.5.0 | 2.25.3 | N/A | MMDetection-based implementation; versions recorded from the training environment |
 | Co-DINO | 3.7.12 | 1.11.0 | 0.12.0 | 11.3 | 8.2 | 1.5.0 | 2.25.3 | N/A | MMDetection-based implementation; versions recorded from the training environment |
 | RT-DETRv2 | TBA | 2.4.1 | TBA | 12.1 | 9.1.2 | N/A | N/A | N/A | Official PyTorch implementation; versions recorded from the training log |
-| DEIMv1 | 3.11.9 | >=2.0.1 | >=0.15.2 | Not pinned | Not pinned | N/A | N/A | N/A | faster-coco-eval>=1.6.5, PyYAML, tensorboard, scipy, calflops, transformers |
+| DEIMv1 | 3.11.9 | 2.0.1 | 0.15.2 | 11.7 | 8.5 | N/A | N/A | N/A | faster-coco-eval>=1.6.5, PyYAML, tensorboard, scipy, calflops, transformers |
 | D-FINE | 3.11.9 | >=2.0.1 | >=0.15.2 | Not pinned | Not pinned | N/A | N/A | N/A | faster-coco-eval>=1.6.6, PyYAML, tensorboard, scipy, calflops, transformers, loguru |
 | YOLO series | >=3.8 | >=1.8.0 | >=0.9.0 | Not pinned | Not pinned | N/A | N/A | Installed from `ultralytics` | numpy>=1.23.0, matplotlib>=3.3.0, opencv-python>=4.6.0, pillow>=7.1.2, pyyaml>=5.3.1, requests>=2.23.0, scipy>=1.4.1, psutil>=5.8.0, polars>=0.20.0, ultralytics-thop>=2.0.18 |
 
