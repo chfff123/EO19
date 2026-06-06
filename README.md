@@ -259,8 +259,6 @@ python -u tools/train.py \
   -u print_freq=10 2>&1 | tee -a outputs/rtdetrv2_r18vd_sp3_120e_eo19/train.log
 ```
 
-> For RT-DETRv2, `-u print_freq=10` is used to update the configuration value. Do not replace it with `--print-freq 10`, which is not recognized by the training script.
-
 ### DEIMv1
 
 ```bash
