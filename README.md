@@ -1,7 +1,7 @@
 # EO19: A Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring
 
 > **Under-Review Preview**  
-> This repository documents the EO19 dataset, EO19-adapted configuration files, environment records, and experimental logs used in the study.  
+> This repository documents the EO19 dataset, model-specific adaptation settings, environment records, and experimental logs used in the study.  
 > To support the review process, author information, institutional identifiers, private machine paths, trained checkpoints, full dataset links, checksums, and release details are withheld until public release.  
 > **Paper / Dataset release:** To be announced after acceptance or official public release.
 
@@ -26,9 +26,9 @@ EO19 is designed to support both biological-taxonomy-aware insect recognition an
 
 ## Important Notice
 
-This repository is intended to document EO19 and provide the dataset-related files, EO19-adapted configuration files, environment records, and experimental logs used in the study.
+This repository is intended to document EO19 and provide dataset-related information, model-specific adaptation settings, environment records, and experimental logs used in the study.
 
-The evaluated detectors were **not** integrated into one unified training framework. Each detector was trained using its corresponding upstream implementation or official codebase. This repository therefore provides EO19 adaptation files and reproducibility records rather than a single merged training framework. Users should first install the corresponding upstream repository and then apply the EO19-adapted files provided here.
+The evaluated detectors were **not** integrated into one unified training framework. Each detector was trained using its corresponding upstream implementation or official codebase. This repository therefore provides EO19 adaptation records and reproducibility information rather than a single merged training framework. Users should first install the corresponding upstream repository and then apply the EO19 dataset paths, category number, and training settings described here.
 
 ---
 
@@ -47,7 +47,7 @@ The evaluated detectors were **not** integrated into one unified training framew
 
 Train : Val : Test = **8 : 1 : 1**, stratified within each category.
 
-<details>
+<details open>
 <summary>Directory structure</summary>
 
 ```text
@@ -106,7 +106,7 @@ export EO19_ROOT=/path/to/EO19   # point to EO19-Original or EO19-Augmented
 General usage steps:
 
 1. Install the corresponding upstream model repository.
-2. Copy or reference the EO19-adapted configuration file for that model.
+2. Prepare or reference the EO19-adapted configuration for that model according to the settings described here.
 3. Update dataset paths to point to `$EO19_ROOT`.
 4. Set the number of categories to 30.
 5. Train and evaluate using the original instructions of the upstream repository.
@@ -121,7 +121,7 @@ Key configuration changes for any framework:
 
 ## Upstream Implementations
 
-The following baselines were trained using their own upstream implementations. The EO19 repository only provides dataset-adaptation files and experimental records.
+The following baselines were trained using their own upstream implementations. The EO19 repository documents the required dataset adaptation settings and experimental records.
 
 | Model group | Upstream implementation | EO19 adaptation |
 |---|---|---|
@@ -130,7 +130,7 @@ The following baselines were trained using their own upstream implementations. T
 | RT-DETRv2 | Official PyTorch implementation | COCO-format dataset paths, 30 classes, EO19 YAML config |
 | DEIMv1 | Official PyTorch implementation | COCO-format dataset paths, 30 classes, EO19 YAML config |
 | D-FINE | Official PyTorch implementation | COCO-format dataset paths, 30 classes, EO19 YAML config |
-| YOLO series | Ultralytics implementation | YOLO-format dataset YAML and training scripts |
+| YOLO series | Ultralytics implementation | YOLO-format dataset YAML and environment record |
 
 ---
 
@@ -164,7 +164,7 @@ COCO-style AP metrics are reported for DETR-family models.
 
 ## Reproducibility Details
 
-The main paper reports only the principal experimental settings to keep the method section concise. This repository records the detailed training configurations, optimizer settings, learning rates, data augmentation schedules, software environments, and launch commands required for reproducibility.
+The main paper reports only the principal experimental settings to keep the method section concise. This repository records the detailed training settings, optimizer summaries, learning-rate settings, data-augmentation notes, software environments, and launch commands required for reproducibility.
 
 ### Principal Training Settings
 
@@ -226,7 +226,7 @@ Because the baseline detectors were trained using different upstream repositorie
 
 ## Training Commands
 
-The commands below show how the EO19-adapted configurations were launched in their corresponding upstream repositories. Private machine paths from the original experiments have been replaced with generic paths. Users should adjust dataset paths, pretrained checkpoint paths, and output directories according to their local environment.
+The commands below show how the EO19-adapted training settings were launched in their corresponding upstream repositories. Private machine paths from the original experiments have been replaced with generic paths. Users should adjust dataset paths, pretrained checkpoint paths, and output directories according to their local environment.
 
 ### Co-DETR
 
@@ -288,58 +288,9 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
 
 ### YOLO Series
 
-All YOLO baselines were trained using the default Ultralytics training workflow. No customized optimizer, scheduler, augmentation pipeline, or model-specific training script was used. Therefore, this repository provides only the EO19 dataset YAML and the corresponding environment record for the YOLO-series experiments.
+All YOLO baselines were trained using the default Ultralytics training workflow. No customized optimizer, scheduler, augmentation pipeline, or model-specific training script was used.
 
 ---
-
-## EO19 Configuration Adapters for Upstream Repositories
-
-The files below are EO19-adapted configuration files and environment records. They are **not** a replacement for the original model repositories, and they are **not** intended to merge all detectors into one monolithic training codebase.
-
-Users should first install the corresponding upstream repository, then copy or reference the provided configuration files in the appropriate location of that upstream repository.
-
-```text
-eo19_adapters/
-
-  co-detr_mmdetection/
-    README.md
-    co_deformable_detr_r50_1x_coco.py   # Co-DETR configuration adapted to EO19
-    environment.txt
-
-  co-dino_mmdetection/
-    README.md
-    co_dino_5scale_vit_large_coco.py    # Co-DINO configuration adapted to EO19
-    environment.txt
-
-  rtdetrv2_official/
-    README.md
-    rtdetrv2_r18vd_sp3_120e_coco.yml    # RT-DETRv2 configuration adapted to EO19
-    environment.txt
-
-  deim_official/
-    README.md
-    deim_hgnetv2_m_coco.yml             # DEIMv1 configuration adapted to EO19
-    environment.txt
-
-  dfine_official/
-    README.md
-    dfine_hgnetv2_m_coco.yml            # D-FINE-M configuration adapted to EO19
-    dfine_hgnetv2_l_coco.yml            # D-FINE-L configuration adapted to EO19
-    environment.txt
-
-  ultralytics_yolo/
-    README.md
-    eo19.yaml                           # YOLO dataset configuration
-    environment.txt                     # YOLO-series environment record
-    # No model-specific train_*.sh files are included because YOLO uses the default Ultralytics training workflow.
-```
-
-Each subfolder corresponds to one upstream implementation. The adapter files mainly modify dataset paths, category numbers, input settings, training schedules, optimizer settings, and evaluation settings required for EO19.
-
-The filenames shown above should be replaced by the exact released filenames if the final repository uses different names. The released configuration files and training logs should be treated as the authoritative reproducibility records.
-
----
-
 
 ## Eigen-CAM Visualizations
 
