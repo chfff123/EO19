@@ -313,12 +313,12 @@ eo19_adapters/
 
   co-detr_mmdetection/
     README.md
-    <co-detr_config>.py                 # Co-DETR configuration adapted to EO19
+    co_deformable_detr_r50_1x_coco.py   # Co-DETR configuration adapted to EO19
     environment.txt
 
   co-dino_mmdetection/
     README.md
-    <co-dino_config>.py                 # Co-DINO configuration adapted to EO19
+    co_dino_5scale_vit_large_coco.py    # Co-DINO configuration adapted to EO19
     environment.txt
 
   rtdetrv2_official/
