@@ -216,7 +216,7 @@ Because the baseline detectors were trained using different upstream repositorie
 | RT-DETRv2 | 3.8.20 | 2.4.1 | 0.19.1 | 12.1 | 9.1.2 | N/A | N/A | N/A | Official PyTorch implementation; versions recorded from the training log |
 | DEIMv1 | 3.11.9 | 2.0.1 | 0.15.2 | 11.7 | 8.5 | N/A | N/A | N/A | faster-coco-eval>=1.6.5, PyYAML, tensorboard, scipy, calflops, transformers |
 | D-FINE | 3.11.9 | >=2.0.1 | >=0.15.2 | Not pinned | Not pinned | N/A | N/A | N/A | faster-coco-eval>=1.6.6, PyYAML, tensorboard, scipy, calflops, transformers, loguru |
-| YOLOv8n | 3.8.10 | 2.0.0| 0.15.1 | 11.8 | 8.7 | N/A | N/A | 8.0... | Version recorded from YOLOv8 training environment |
+| YOLOv8n | 3.8.10 | 2.0.0| 0.15.1 | 11.8 | 8.7 | N/A | N/A | 8.1.0 | Version recorded from YOLOv8 training environment |
 | YOLO11n | 3.8.10 | 2.0.0| 0.15.1 | 11.8 | 8.7 | N/A | N/A | 8.3.27 | Version recorded from YOLOv11 training environment |
 | YOLOv12n | 3.12.3 | 2.5.1 | 0.20.1 | 12.4 | 9.1 | N/A | N/A | 8.3.63 | Version recorded from YOLOv12 training environment |
 | YOLOv13n | 3.12.3 | 2.3.0 | 0.18.0 | 12.1 | 8.9.2 | N/A | N/A | 8.3.63 | Version recorded from YOLOv13 training environment |
