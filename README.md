@@ -201,7 +201,7 @@ The main paper reports only the principal experimental settings to keep the meth
 | DEIMv1 | AdamW | 4e-4 | 4e-5 | 1e-4 | 102 epochs total; DEIMv1 augmentation and schedule follow official configuration |
 | D-FINE-M | AdamW | 2e-4 | 2e-5 | 1e-4 | 60 epochs total; schedule follows official D-FINE-M configuration |
 | D-FINE-L | AdamW | 2.5e-4 | 1.25e-5 | 1.25e-4 | 80 epochs total; schedule follows official D-FINE-L configuration |
-| YOLO series | Ultralytics default optimizer setting | See YOLO logs | See YOLO logs | See YOLO logs | 100 epochs; 640×640 input |
+| YOLO series | Ultralytics default optimizer | Default | N/A | Default | 100 epochs and 640×640 input; other optimizer and schedule settings follow the default Ultralytics `train.py` configuration |
 
 > The optimizer and schedule table is a compact summary. Exact values should be checked in the released adapter files and training logs.
 
@@ -289,19 +289,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
 
 ### YOLO Series
 
-The exact YOLO commands will be finalized after the final training logs are organized. The following commands are placeholders based on the Ultralytics command-line interface and should be checked against the actual commands used in the experiments before release.
-
-```bash
-# YOLOv8n
-
-
-# YOLO11n
-
-# YOLOv12n
-
-
-# YOLOv13n
-```
+All YOLO baselines were trained using the default Ultralytics `train.py` workflow. No model-specific custom training command is listed here because the optimizer and training procedure followed the default settings; only the EO19 dataset configuration, model variant, epoch number, batch size, and input size were specified.
 
 ---
 
@@ -356,60 +344,6 @@ If the actual released filenames differ from the placeholders above, the reposit
 
 ---
 
-## Configuration Files vs. Trained Checkpoints
-
-Configuration files and trained model weights are different.
-
-Configuration files:
-
-```text
-.py
-.yml
-.yaml
-```
-
-These files define dataset paths, category numbers, model architecture, training schedules, optimizer settings, input sizes, and evaluation settings.
-
-Trained checkpoints:
-
-```text
-.pth
-.pt
-.ckpt
-.safetensors
-```
-
-These files contain learned model parameters.
-
-At the current preview stage, trained checkpoints are withheld pending publication. If released later, they should be provided separately, for example:
-
-```text
-checkpoints/
-
-  co-detr/
-    co_detr_r50_eo19.pth
-
-  co-dino/
-    co_dino_vit_l_5scale_eo19.pth
-
-  rtdetrv2/
-    rtdetrv2_r18vd_sp3_120e_eo19.pth
-
-  deim/
-    deim_hgnetv2_m_eo19.pth
-
-  dfine/
-    dfine_hgnetv2_m_eo19.pth
-    dfine_hgnetv2_l_eo19.pth
-
-  yolo/
-    yolov8n_eo19.pt
-    yolo11n_eo19.pt
-    yolov12n_eo19.pt
-    yolov13n_eo19.pt
-```
-
----
 
 ## Eigen-CAM Visualizations
 
@@ -527,8 +461,6 @@ Under balanced conditions, the life-stage-aware taxonomy yields clear gains acro
 
 Dataset files, EO19-adapted configuration files, trained checkpoints, checksums, and release details: **TBA**.
 
-Configuration files such as `.py`, `.yml`, and `.yaml` files are used to reproduce training in the corresponding upstream repositories. They are not trained model weights. If trained checkpoints are released, they will be provided separately as `.pth` or `.pt` files.
-
 ---
 
 ## Citation
@@ -554,5 +486,4 @@ Paper / Dataset / Code: **TODO**.
 ## Contact & Acknowledgements
 
 - Email: BDing81@outlook.com
-- Built on [IP102](https://github.com/xpwu95/IP102), which was screened and cleaned as a primary image source.
 - We thank the agricultural entomology experts involved in annotation verification.
