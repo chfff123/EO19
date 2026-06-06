@@ -1,8 +1,9 @@
-# EO19: A Large Dataset Construction for Insect Identification and Multi-Model Performance Assessment
+# EO19: A Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring
 
-> **Public Preview · Under Review**  
-> Dataset links, full author list, trained checkpoints, and private paths are withheld pending publication.  
-> **Paper / Dataset release:** TBA
+> **Under-Review Preview**  
+> This repository documents the EO19 dataset, EO19-adapted configuration files, environment records, and experimental logs used in the study.  
+> To support the review process, author information, institutional identifiers, private machine paths, trained checkpoints, full dataset links, checksums, and release details are withheld until public release.  
+> **Paper / Dataset release:** To be announced after acceptance or official public release.
 
 ---
 
@@ -25,9 +26,9 @@ EO19 is designed to support both biological-taxonomy-aware insect recognition an
 
 ## Important Notice
 
-This repository is intended to document EO19 and provide the dataset-related files, EO19-adapted configuration files, environment records, and experimental logs used in our study.
+This repository is intended to document EO19 and provide the dataset-related files, EO19-adapted configuration files, environment records, and experimental logs used in the study.
 
-The evaluated detectors were **not** integrated into one unified training framework. Each detector was trained using its corresponding upstream implementation or official codebase. Users should install the corresponding upstream repository first, and then apply the EO19-adapted configuration files provided here.
+The evaluated detectors were **not** integrated into one unified training framework. Each detector was trained using its corresponding upstream implementation or official codebase. This repository therefore provides EO19 adaptation files and reproducibility records rather than a single merged training framework. Users should first install the corresponding upstream repository and then apply the EO19-adapted files provided here.
 
 ---
 
@@ -135,7 +136,7 @@ The following baselines were trained using their own upstream implementations. T
 
 ## Model Zoo
 
-All metrics are reported on the **EO19-Original validation split**. Values are shown on the scale **[0, 1]**.
+Unless otherwise specified, the preview metrics reported in this repository are evaluated on the **EO19-Original validation split**. Values are shown on the scale **[0, 1]**. The official paper and the final public release should use the same evaluation split and metric definitions consistently.
 
 ### DETR-family Models
 
@@ -163,7 +164,7 @@ COCO-style AP metrics are reported for DETR-family models.
 
 ## Reproducibility Details
 
-The main paper reports only the principal experimental settings to keep the method section concise. Detailed training configurations, optimizer settings, learning rates, data augmentation schedules, and software environments are documented here for reproducibility.
+The main paper reports only the principal experimental settings to keep the method section concise. This repository records the detailed training configurations, optimizer settings, learning rates, data augmentation schedules, software environments, and launch commands required for reproducibility.
 
 ### Principal Training Settings
 
@@ -199,7 +200,7 @@ The main paper reports only the principal experimental settings to keep the meth
 | DEIMv1 | AdamW | 4e-4 | 4e-5 | 1e-4 | 102 epochs total; DEIMv1 augmentation and schedule follow official configuration |
 | D-FINE-M | AdamW | 2e-4 | 2e-5 | 1e-4 | 60 epochs total; schedule follows official D-FINE-M configuration |
 | D-FINE-L | AdamW | 2.5e-4 | 1.25e-5 | 1.25e-4 | 80 epochs total; schedule follows official D-FINE-L configuration |
-| YOLO series | Ultralytics default optimizer | Default | N/A | Default | 100 epochs and 640×640 input; other optimizer and schedule settings follow the default Ultralytics `train.py` configuration |
+| YOLO series | Ultralytics default optimizer | Default | N/A | Default | 100 epochs and 640×640 input; no customized optimizer or training pipeline was used. Other optimizer and schedule settings follow the default Ultralytics `train.py` workflow |
 
 > The optimizer and schedule table is a compact summary. Exact values should be checked in the released adapter files and training logs.
 
@@ -287,7 +288,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
 
 ### YOLO Series
 
-All YOLO baselines were trained using the default Ultralytics `train.py` workflow. No model-specific custom training command is listed here because the optimizer and training procedure followed the default settings; only the EO19 dataset configuration, model variant, epoch number, batch size, and input size were specified.
+All YOLO baselines were trained using the default Ultralytics training workflow. No customized optimizer, scheduler, augmentation pipeline, or model-specific training script was used. Therefore, this repository provides only the EO19 dataset YAML and the corresponding environment record for the YOLO-series experiments.
 
 ---
 
@@ -329,16 +330,13 @@ eo19_adapters/
   ultralytics_yolo/
     README.md
     eo19.yaml                           # YOLO dataset configuration
-    train_yolov8n.sh
-    train_yolo11n.sh
-    train_yolov12n.sh
-    train_yolov13n.sh
-    environment.txt
+    environment.txt                     # YOLO-series environment record
+    # No model-specific train_*.sh files are included because YOLO uses the default Ultralytics training workflow.
 ```
 
 Each subfolder corresponds to one upstream implementation. The adapter files mainly modify dataset paths, category numbers, input settings, training schedules, optimizer settings, and evaluation settings required for EO19.
 
-If the actual released filenames differ from the placeholders above, the repository structure should use the real filenames that appear in the released repository.
+The filenames shown above should be replaced by the exact released filenames if the final repository uses different names. The released configuration files and training logs should be treated as the authoritative reproducibility records.
 
 ---
 
@@ -455,9 +453,9 @@ Under balanced conditions, the life-stage-aware taxonomy yields clear gains acro
 
 ---
 
-## Download
+## Release and Download
 
-Dataset files, EO19-adapted configuration files, trained checkpoints, checksums, and release details: **TBA**.
+Dataset files, EO19-adapted configuration files, trained checkpoints, checksums, and release details will be provided after the paper is accepted or after the official public release is approved.
 
 ---
 
@@ -466,10 +464,10 @@ Dataset files, EO19-adapted configuration files, trained checkpoints, checksums,
 ```bibtex
 @misc{EO19_2026,
   title  = {EO19: A Family-Level, Life-Stage-Aware Insect Detection Dataset for Agricultural Pest Monitoring},
-  author = {TODO},
+  author = {Anonymous},
   year   = {2026},
   note   = {Under review},
-  url    = {TBA}
+  url    = {To be released}
 }
 ```
 
@@ -477,11 +475,11 @@ Dataset files, EO19-adapted configuration files, trained checkpoints, checksums,
 
 ## License
 
-Paper / Dataset / Code: **TODO**.
+Paper, dataset, code, trained checkpoints, and configuration adapters will be released under an appropriate license after acceptance or official public release approval.
 
 ---
 
-## Contact & Acknowledgements
+## Contact and Acknowledgements
 
-- Email: BDing81@outlook.com
-- We thank the agricultural entomology experts involved in annotation verification.
+- Contact information will be added after the review process.
+- We thank the agricultural entomology experts involved in annotation verification. Full acknowledgements will be added in the final public release.
