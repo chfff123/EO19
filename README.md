@@ -29,8 +29,6 @@ This repository is intended to document EO19 and provide the dataset-related fil
 
 The evaluated detectors were **not** integrated into one unified training framework. Each detector was trained using its corresponding upstream implementation or official codebase. Users should install the corresponding upstream repository first, and then apply the EO19-adapted configuration files provided here.
 
-The `.py`, `.yml`, and `.yaml` files in this repository are **configuration files**, not trained model weights. Trained checkpoints, if released, will be provided separately.
-
 ---
 
 ## Dataset Versions
